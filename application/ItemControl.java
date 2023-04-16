@@ -76,8 +76,8 @@ public class ItemControl
 	public void setText(Item item)
 	{
 		_nameField.setText(item.getName());
-		_weightField.setText(String.valueOf(item.getWeight()));
-		_priceField.setText(String.valueOf(item.getWholesalePrice()));
+		_weightField.setText(String.format("%.2f",item.getWeight()));
+		_priceField.setText(String.format("%.2f",item.getWholesalePrice()));
 		_quantityField.setText(String.valueOf(item.getQuantityInStock()));
 	}
 	

@@ -613,6 +613,7 @@ public class InventoryApplication extends Application
 			control.setDisable(false);
 			saveButton.setDisable(false);
 			editButton.setDisable(true);
+			control.requestFocus();
 		});
 		
 		Button closeButton = makeButton("Close");
@@ -621,11 +622,12 @@ public class InventoryApplication extends Application
 		GridPane grid = createGridPane();
 		grid = addPanelTitle(grid, "Viewing Item: " + item.getName());
 		grid = addItemControlLayout(grid, control);
+		grid = addAndSetViewOnlyFields(grid, item);
 		
 		HBox hbox = new HBox();
 		hbox.setAlignment(Pos.BOTTOM_RIGHT);
 		hbox.getChildren().addAll(editButton, saveButton, closeButton);
-		grid.add(hbox, 0, 6, 2, 6);
+		grid.add(hbox, 0, 7, 2, 7);
 		
 		Scene dialogScene = new Scene(grid);
 		dialog.setScene(dialogScene);
@@ -658,6 +660,23 @@ public class InventoryApplication extends Application
 		
 		updateListViewContents();
 		control.clearTextFields();
+	}
+	
+	private GridPane addAndSetViewOnlyFields(GridPane grid, Item item)
+	{
+		grid.add(new Label("Retail Price ($):"), 0, 5);
+		TextField retailPriceField = new TextField();
+		retailPriceField.setText(String.format("%.2f",item.getRetailPrice()));
+		retailPriceField.setDisable(true);
+		grid.add(retailPriceField, 1, 5);
+		
+		grid.add(new Label("Storage Costs ($):"), 0, 6);
+		TextField storageCostField = new TextField();
+		storageCostField.setText(String.format("%.2f",item.getStorageCost()));
+		storageCostField.setDisable(true);
+		grid.add(storageCostField, 1, 6);
+		
+		return grid;
 	}
 	
 	/**
