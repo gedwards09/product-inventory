@@ -60,22 +60,30 @@ public class InventoryApplication extends Application
 	private final ItemControl _control = new ItemControl();
 	/** Reference to home stage where most user actions occur*/
 	private Stage _homeStage;
-	/** Parameter setting list view width */
+	/** List view width */
 	private static final int s_listViewWidth = 200;
-	/** Parameter setting list view height */
+	/** List view height */
 	private static final int s_listViewHeight = 250;
-	/** Parameter setting vertical gap spacing */
+	/** Vertical gap spacing */
 	private static final int s_vSpace = 10;
-	/** Parameter setting horizontal gap spacing */
+	/** Horizontal gap spacing */
 	private static final int s_hSpace = 10;
-	/** Parameter setting vertical inset pad spacing */
+	/** Vertical inset pad spacing */
 	private static final int s_vPad = 15;
-	/** Parameter setting horizontal inset pad spacing */
+	/** Horizontal inset pad spacing */
 	private static final int s_hPad = 12;
-	/** Parameter setting vertical inset spacing for grid */
+	/** Vertical inset spacing for grid */
 	private static final int s_gridVPad = 25;
-	/** Parameter setting horizontal inset spacing for grid */
+	/** Horizontal inset spacing for grid */
 	private static final int s_gridHPad = 25;
+	/** Width for the navigation panel buttons */
+	private static final int s_navButtonWidth = 100;
+	/** Height for the navigation panel buttons*/
+	private static final int s_navButtonHeight = 20;
+	/** Width for item change buttons */
+	private static final int s_itemButtonWidth = 80;
+	/** Height for item change buttons */
+	private static final int s_itemButtonHeight = 20;
 	/** Application name for display on main stage */
 	private static final String s_appTitle = "Inventory Application";
 	
@@ -139,6 +147,7 @@ public class InventoryApplication extends Application
 		Button export = makeExportButton();
 		
 		Button close = makeButton("Close");
+		close.setPrefSize(s_navButtonWidth, s_navButtonHeight);
 		close.setOnAction(e -> _homeStage.close());
 		
 		
@@ -164,6 +173,7 @@ public class InventoryApplication extends Application
 	private Button makeReportButton()
 	{
 		Button report = makeButton("Report");
+		report.setPrefSize(s_navButtonWidth, s_navButtonHeight);
 		report.setOnAction(
 			new EventHandler<ActionEvent>()
 			{
@@ -201,7 +211,6 @@ public class InventoryApplication extends Application
 	private Button makeButton(String name)
 	{
 		Button button = new Button(name);
-		button.setPrefSize(100, 20);
 		return button;
 	}
 	
@@ -212,6 +221,7 @@ public class InventoryApplication extends Application
 	private Button makeImportButton()
 	{
 		Button importButton = makeButton("Import");
+		importButton.setPrefSize(s_navButtonWidth, s_navButtonHeight);
 		importButton.setOnAction(e -> onClickImportButton(e));
 		
 		return importButton;
@@ -365,6 +375,7 @@ public class InventoryApplication extends Application
 	private Button makeExportButton()
 	{
 		Button export = makeButton("Export");
+		export.setPrefSize(s_navButtonWidth, s_navButtonHeight);
 		export.setOnAction(e -> onClickExportButton(e));
 		
 		return export;
@@ -421,6 +432,7 @@ public class InventoryApplication extends Application
 		grid = addItemControlLayout(grid, control);
 		
 		Button addItemButton = new Button("Add Item");
+		addItemButton.setPrefSize(s_itemButtonWidth, s_itemButtonHeight);
 		addItemButton.setOnAction(e -> onClickAddItemButton(control));
 	
 		HBox hbox = new HBox(s_hSpace);
@@ -536,9 +548,11 @@ public class InventoryApplication extends Application
 		sortCheckBox.setOnAction(e -> onToggleSortCheckBox(e));
 		
 		Button viewButton = makeButton("View");
+		viewButton.setPrefSize(s_itemButtonWidth, s_itemButtonHeight);
 		viewButton.setOnAction(e -> onClickViewButton(e));
 		
 		Button deleteButton = makeButton("Delete");
+		deleteButton.setPrefSize(s_itemButtonWidth, s_itemButtonHeight);
 		deleteButton.setOnAction(e -> onClickDeleteButton(e));
 		
 		HBox hbox = new HBox();
@@ -600,6 +614,7 @@ public class InventoryApplication extends Application
 		control.setDisable(true);
 		
 		Button saveButton = makeButton("Save");
+		saveButton.setPrefSize(s_itemButtonWidth, s_itemButtonHeight);
 		saveButton.setDisable(true);
 		saveButton.setOnAction(e ->
 		{
@@ -608,6 +623,7 @@ public class InventoryApplication extends Application
 		});
 		
 		Button editButton = makeButton("Edit");
+		editButton.setPrefSize(s_itemButtonWidth, s_itemButtonHeight);
 		editButton.setOnAction(e -> 
 		{
 			control.setDisable(false);
@@ -617,6 +633,7 @@ public class InventoryApplication extends Application
 		});
 		
 		Button closeButton = makeButton("Close");
+		closeButton.setPrefSize(s_itemButtonWidth, s_itemButtonHeight);
 		closeButton.setOnAction(e -> dialog.close());
 		
 		GridPane grid = createGridPane();
@@ -625,6 +642,7 @@ public class InventoryApplication extends Application
 		grid = addAndSetViewOnlyFields(grid, item);
 		
 		HBox hbox = new HBox();
+		hbox.setSpacing(s_hSpace);
 		hbox.setAlignment(Pos.BOTTOM_RIGHT);
 		hbox.getChildren().addAll(editButton, saveButton, closeButton);
 		grid.add(hbox, 0, 7, 2, 7);
