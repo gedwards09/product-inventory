@@ -42,6 +42,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -224,6 +225,8 @@ public class InventoryApplication extends Application
 	{
 		FileChooser fc = new FileChooser();
 		fc.setInitialDirectory(new File(System.getProperty("user.home")));
+		ExtensionFilter csvFilter = new ExtensionFilter("CSV files (*.csv)", "*.csv");
+		fc.getExtensionFilters().add(csvFilter);
 		List<File> fileList = fc.showOpenMultipleDialog(_homeStage);
 		if (fileList != null)
 		{
@@ -375,7 +378,8 @@ public class InventoryApplication extends Application
 	{
 		FileChooser fc = new FileChooser();
 		fc.setInitialDirectory(new File(System.getProperty("user.home")));
-		//TODO: restrict to only csv files
+		ExtensionFilter csvFilter = new ExtensionFilter("CSV files (*.csv)", "*.csv");
+		fc.getExtensionFilters().add(csvFilter);
 		File file = fc.showSaveDialog(_homeStage);
 		if (file != null)
 		{
